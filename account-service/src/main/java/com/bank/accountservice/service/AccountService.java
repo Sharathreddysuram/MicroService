@@ -16,12 +16,14 @@ import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
-public class AccountService {
+public class AccountService
+{
 
     private final AccountRepository accountRepository;
     private final CustomerClient customerClient;
 
-    public Account createAccount(AccountRequest request) {
+    public Account createAccount(AccountRequest request)
+    {
 
         customerClient.getCustomerById(request.getCustomerId());
 
@@ -40,13 +42,15 @@ public class AccountService {
         return accountRepository.findAll();
     }
 
-    public Account getAccountById(Long accountId) {
+    public Account getAccountById(Long accountId)
+    {
         return accountRepository.findById(accountId)
                 .orElseThrow(() ->
                         new AccountNotFoundException("Account not found with ID: " + accountId));
     }
 
-    public Account deposit(Long accountId, BigDecimal amount) {
+    public Account deposit(Long accountId, BigDecimal amount)
+    {
         Account account = getAccountById(accountId);
 
         account.setBalance(account.getBalance().add(amount));
